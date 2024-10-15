@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravity Experiment</title>
+    <style>
+        body, html {
+            margin: 0;
+            overflow: hidden;
+            height: 100%;
+        }
+        canvas {
+            display: block;
+        }
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <a href="#">
+            <button>Home</button>
+        </a>
+        <label for="environment">Environment:</label>
+        <select id="environment">
+            <option value="vacuum">Vacuum</option>
+            <option value="air">Air</option>
+        </select>
+    </div>
+    <canvas id="webglCanvas"></canvas>
+
+    <!-- Vertex Shader -->
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute vec3 coordinates;
+        uniform mat4 modelViewMatrix;
+        uniform mat4 projectionMatrix;
+        void main(void) {
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(coordinates, 1.0);
+        }
+    </script>
+
+    <!-- Fragment Shader -->
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        void main(void) {
+            gl_FragColor = vec4(1.0, 0.5, 0.0, 1.0); // Orange color
+        }
+    </script>
+
+    <script src="initShaders.js"></script> <!-- Init shaders file -->
+    <script src="MVnew.js"></script> <!-- MV library file -->
+    <script src="gravity_experiment.js"></script> <!-- Main WebGL code -->
+</body>
+</html>
